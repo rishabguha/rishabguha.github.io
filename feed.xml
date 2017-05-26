@@ -3,8 +3,8 @@
   <channel>
     <title>Rishab Guha</title>
     <description></description>
-    <link>http://localhost:4000/</link>
-    <atom:link href="http://localhost:4000/feed.xml" rel="self" type="application/rss+xml" />
+    <link>http://www.rishabguha.com/</link>
+    <atom:link href="http://www.rishabguha.com/feed.xml" rel="self" type="application/rss+xml" />
     
       <item>
         <title>Bitcoin and news-driven bubbles</title>
@@ -25,13 +25,13 @@
 &lt;p&gt;For each user account in the Mt. Gox data I found the date of the account’s first trade; we can group by date to get a nice time-series of investor inflow by date:&lt;/p&gt;
 
 &lt;p align=&quot;center&quot;&gt;
-  &lt;img src=&quot;http://localhost:4000/assets/NewTradersOverTime.svg&quot; alt=&quot;New traders plot&quot; /&gt;
+  &lt;img src=&quot;http://www.rishabguha.com/assets/NewTradersOverTime.svg&quot; alt=&quot;New traders plot&quot; /&gt;
 &lt;/p&gt;
 
 &lt;p&gt;I cut off analysis at April 2013, because past that point a large volume of Bitcoin exchange started to move away from Mt. Gox, as traders staretd to speculate about insolvency. There are clear peaks in the inflow chart during period where the Bitcoin price was increasing, but there’s also a lot of volatility in the periods in between price run-ups. I hypothesized that some of this volatility could be explained by changes in news coverage of Bitcoin. A  regression seems to bear this out:&lt;/p&gt;
 
 &lt;p align=&quot;center&quot;&gt;
-  &lt;img src=&quot;http://localhost:4000/assets/btctable.svg&quot; alt=&quot;New traders regression&quot; /&gt;
+  &lt;img src=&quot;http://www.rishabguha.com/assets/btctable.svg&quot; alt=&quot;New traders regression&quot; /&gt;
 &lt;/p&gt;
 
 &lt;p&gt;There’s a lot going on in that table:&lt;/p&gt;
@@ -68,8 +68,8 @@
 &lt;/div&gt;
 </description>
         <pubDate>Fri, 26 May 2017 00:00:00 -0400</pubDate>
-        <link>http://localhost:4000/2017/05/26/bitcoin/</link>
-        <guid isPermaLink="true">http://localhost:4000/2017/05/26/bitcoin/</guid>
+        <link>http://www.rishabguha.com/2017/05/26/bitcoin/</link>
+        <guid isPermaLink="true">http://www.rishabguha.com/2017/05/26/bitcoin/</guid>
       </item>
     
   </channel>

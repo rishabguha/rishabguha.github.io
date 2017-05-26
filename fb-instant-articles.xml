@@ -2,7 +2,7 @@
 <rss version="2.0" xmlns:content="http://purl.org/rss/1.0/modules/content/">
   <channel>
     <title></title>
-    <link>http://localhost:4000</link>
+    <link>http://www.rishabguha.com</link>
     <description>
       
     </description>
@@ -10,7 +10,7 @@
         
             <item>
                 <title>Bitcoin and news-driven bubbles</title>
-                <link>http://localhost:4000/2017/05/26/bitcoin/</link>
+                <link>http://www.rishabguha.com/2017/05/26/bitcoin/</link>
                 <content:encoded>
                     <![CDATA[
                     <p>It looks like Bitcoin is <a href="https://www.nytimes.com/2017/05/15/business/all-about-bitcoin-the-mysterious-digital-currency.html">back in the news</a>, so I thought it would be interesting to dig up my undergrad senior thesis, which analyzed Bitcoin using some of the tools of financial economics. The whole thing is available <a href="http://econ.columbia.edu/files/econ/content/guha.pdf">here</a>; this post will focus on the link I uncovered  between <strong>news coverage, investor inflow, and speculative bubbles</strong> which continues to apply to cryptocurrencies, and speculative assets more broadly.</p>
@@ -30,13 +30,13 @@
 <p>For each user account in the Mt. Gox data I found the date of the account’s first trade; we can group by date to get a nice time-series of investor inflow by date:</p>
 
 <p align="center">
-  <img src="http://localhost:4000/assets/NewTradersOverTime.svg" alt="New traders plot" />
+  <img src="http://www.rishabguha.com/assets/NewTradersOverTime.svg" alt="New traders plot" />
 </p>
 
 <p>I cut off analysis at April 2013, because past that point a large volume of Bitcoin exchange started to move away from Mt. Gox, as traders staretd to speculate about insolvency. There are clear peaks in the inflow chart during period where the Bitcoin price was increasing, but there’s also a lot of volatility in the periods in between price run-ups. I hypothesized that some of this volatility could be explained by changes in news coverage of Bitcoin. A  regression seems to bear this out:</p>
 
 <p align="center">
-  <img src="http://localhost:4000/assets/btctable.svg" alt="New traders regression" />
+  <img src="http://www.rishabguha.com/assets/btctable.svg" alt="New traders regression" />
 </p>
 
 <p>There’s a lot going on in that table:</p>
