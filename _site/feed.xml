@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Rishab Guha</title>
+    <description></description>
+    <link>http://localhost:4000/</link>
+    <atom:link href="http://localhost:4000/feed.xml" rel="self" type="application/rss+xml" />
+    
+      <item>
+        <title>Bitcoin and news-driven bubbles</title>
+        <description>&lt;p&gt;It looks like Bitcoin is &lt;a href=&quot;https://www.nytimes.com/2017/05/15/business/all-about-bitcoin-the-mysterious-digital-currency.html&quot;&gt;back in the news&lt;/a&gt;, so I thought it would be interesting to dig up my undergrad senior thesis, which analyzed Bitcoin using some of the tools of financial economics. The whole thing is available &lt;a href=&quot;http://econ.columbia.edu/files/econ/content/guha.pdf&quot;&gt;here&lt;/a&gt;; this post will focus on the link I uncovered  between &lt;strong&gt;news coverage, investor inflow, and speculative bubbles&lt;/strong&gt; which continues to apply to cryptocurrencies, and speculative assets more broadly.&lt;/p&gt;
+
+&lt;h2 id=&quot;the-challenges-of-pricing--de-novo-assets-like-bitcoin&quot;&gt;The challenges of pricing  &lt;em&gt;de novo&lt;/em&gt; assets like Bitcoin&lt;/h2&gt;
+
+&lt;p&gt;In the textbook models of financial economics, the price of an any asset—whether it’s a stock, a bond, or a Bitcoin—is based on investors’ beliefs about the future payouts of that asset. Investors buy assets that they think are going to have good payouts relative to the price they’re being offered at,&lt;sup id=&quot;fnref:1&quot;&gt;&lt;a href=&quot;#fn:1&quot; class=&quot;footnote&quot;&gt;1&lt;/a&gt;&lt;/sup&gt; and sell (or just don’t buy) assets that they think are going to have bad payouts. The prices that equalize supply and demand become the prevailing prices of financial assets, and these prices change when people learn new things about an asset’s future payouts. For example, we would expect the price of Tesla stock  to go down if we find out that their batteries are prone to random explosions, because future profits would seem less likely.&lt;sup id=&quot;fnref:2&quot;&gt;&lt;a href=&quot;#fn:2&quot; class=&quot;footnote&quot;&gt;2&lt;/a&gt;&lt;/sup&gt;&lt;/p&gt;
+
+&lt;p&gt;Implicit in this standard model is the assumption that people are always forming beliefs about assets on the market, and changing their purchasing activity along with those beliefs. On a literal level this is obviously false—no one goes around doing a financial analysis of every stock in existence every day—but it’s reasonably good approximation of the way we think about financial assets. I’m generally aware of the various asset classes available to me, and if I’m not invested in them it’s because at some point I decided they weren’t a good deal relative to the assets I &lt;em&gt;am&lt;/em&gt; invested in (like my Vanguard index fund).&lt;/p&gt;
+
+&lt;p&gt;However, this model breaks down when we think about genuinely new asset classes, like Bitcoin. When Bitcoin was first introduced 8 years ago it’s not like everyone immediately calculated the expected cashflows and decided not to invest—a large fraction of the potential investor base didn’t even &lt;em&gt;know&lt;/em&gt; there was an asset to evaluate. &lt;strong&gt;As news about Bitcoin spread more people started buying it merely because they started &lt;em&gt;hearing&lt;/em&gt; about it&lt;/strong&gt;. This story suggests a hypothesis: for a novel asset like Bitcoin, any news is good news. Anything that helps more people find out about the asset’s existence will increase demand, even if the news itself doesn’t carry any positive information.&lt;/p&gt;
+
+&lt;h2 id=&quot;taking-the-hypothesis-to-the-data&quot;&gt;Taking the hypothesis to the data&lt;/h2&gt;
+
+&lt;p&gt;From 2011 to mid-2013, the Mt. Gox&lt;sup id=&quot;fnref:3&quot;&gt;&lt;a href=&quot;#fn:3&quot; class=&quot;footnote&quot;&gt;3&lt;/a&gt;&lt;/sup&gt; online exchange was the largest platform on which traders could exchange Bitcoin (BTC) for dollars, accounting for about 90% of all transaction volume over this period. By mid-2014 the exchange had failed due to insolvency. During the liquidation process a group of hackers publicly released Mt. Gox’s full trade log. While this was unfortunate for Mt. Gox, it’s a great gift to researchers: unlike most trade data, the leaked log identifies each transaction by the user ID of the participants. Some people have used this data to investigate &lt;a href=&quot;http://bitcoin.stamen.com/&quot;&gt;individual trading strategies&lt;/a&gt;; I used it to isolate the trades made by first-time buyers.&lt;/p&gt;
+
+&lt;p&gt;For each user account in the Mt. Gox data I found the date of the account’s first trade; we can group by date to get a nice time-series of investor inflow by date:&lt;/p&gt;
+
+&lt;p align=&quot;center&quot;&gt;
+  &lt;img src=&quot;http://localhost:4000/assets/NewTradersOverTime.svg&quot; alt=&quot;New traders plot&quot; /&gt;
+&lt;/p&gt;
+
+&lt;p&gt;I cut off analysis at April 2013, because past that point a large volume of Bitcoin exchange started to move away from Mt. Gox, as traders staretd to speculate about insolvency. There are clear peaks in the inflow chart during period where the Bitcoin price was increasing, but there’s also a lot of volatility in the periods in between price run-ups. I hypothesized that some of this volatility could be explained by changes in news coverage of Bitcoin. A  regression seems to bear this out:&lt;/p&gt;
+
+&lt;p align=&quot;center&quot;&gt;
+  &lt;img src=&quot;http://localhost:4000/assets/btctable.svg&quot; alt=&quot;New traders regression&quot; /&gt;
+&lt;/p&gt;
+
+&lt;p&gt;There’s a lot going on in that table:&lt;/p&gt;
+
+&lt;ol&gt;
+  &lt;li&gt;The first column shows the regression of the dollars spent by first-time Bitcoin buyer on a given day on the number of news articles mentioning Bitcoin published on that day&lt;sup id=&quot;fnref:4&quot;&gt;&lt;a href=&quot;#fn:4&quot; class=&quot;footnote&quot;&gt;4&lt;/a&gt;&lt;/sup&gt; as well as a vector of controls (I’ll explain those last). The coefficient is highly statistically significant and shows that, on average, an additional news article written about bitcoin contributed to $120K more buying activity by first-time investors.&lt;/li&gt;
+  &lt;li&gt;The second column replaces the news articles variable with a variable summarizing the Google Trends search index for “bitcoin” and associated terms. This coefficient is also very statistically and economically significant, suggesting that new investors are likely to buy Bitcoin on days that a lot of people are interested in finding out more about Bitcoin.&lt;/li&gt;
+  &lt;li&gt;The third column includes regressors for both news articles and the Google Trends search index. The Google Trends regressor is still highly statistically and economically significant, but the news articles regressor is not. This supports the hypothesis that news coverage affects investor inflow by making people more interested in Bitcoin, and not by changing the beliefs of people who already knew a lot about Bitcoin&lt;/li&gt;
+  &lt;li&gt;The controls summarize various important market-related variables. The idea here is that if news affected beliefs about Bitcoin’s future prospects, it should affect market prices. For example, if new broke that the U.S. government was contemplating banning Bitcoin, we would expect volatility and returns to both change. Including these variables in the regression helps control for “material” news that actually affects the price of a Bitcoin.&lt;/li&gt;
+&lt;/ol&gt;
+
+&lt;p&gt;With the controls in place, we can interpret the results as showing that “general-interest” news, which informs people about Bitcoin’s existence, but doesn’t share any meaningfully new information about its potential payoffs, induces more investment by first-time buyers. The finding is robust to a bunch of different specifications and technical tests—check the original paper if you’re interested in the gory details.&lt;/p&gt;
+
+&lt;p&gt;These results matter because there have been a &lt;a href=&quot;http://www.wsj.com/video/what-a-bitcoin/D79FF38C-7816-435B-B3B0-F9B177BCA0A8.html&quot;&gt;lot&lt;/a&gt; &lt;a href=&quot;http://www.npr.org/2011/05/24/136620231/what-are-bitcoins&quot;&gt;of&lt;/a&gt; &lt;a href=&quot;https://www.vox.com/cards/bitcoin&quot;&gt;bitcoin&lt;/a&gt; &lt;a href=&quot;https://www.washingtonpost.com/lifestyle/style/what-is-bitcoin-anyway/2014/01/23/599bf8de-83a2-11e3-9dd4-e7278db80d86_story.html&quot;&gt;“explainers”&lt;/a&gt; &lt;a href=&quot;http://money.cnn.com/infographic/technology/what-is-bitcoin/&quot;&gt;over&lt;/a&gt; &lt;a href=&quot;http://www.bbc.com/news/av/technology-24384897/what-is-bitcoin-and-how-does-virtual-currency-work&quot;&gt;the&lt;/a&gt; &lt;a href=&quot;http://www.motherjones.com/politics/2013/04/what-is-bitcoin-explained&quot;&gt;years&lt;/a&gt;, &lt;a href=&quot;https://www.nytimes.com/2017/05/15/business/all-about-bitcoin-the-mysterious-digital-currency.html?_r=0&quot;&gt;including&lt;/a&gt; &lt;a href=&quot;http://www.foxbusiness.com/markets/2017/01/10/what-is-bitcoin.html&quot;&gt;very&lt;/a&gt; 
+&lt;a href=&quot;http://abcnews.go.com/Technology/wireStory/ap-explains-bitcoin-digital-currency-47394494&quot;&gt;recently&lt;/a&gt;, often coinciding with sharp increases in price. My results suggest that &lt;strong&gt;these price booms could actually be fueled by the news coverage of Bitcoin, independent of any actual “rational” changes in beliefs&lt;/strong&gt; about its utility or prospects as a global currency. It’s also easy to see how this process could build on itself: news coverage causes investor inflows, which causes price increases, which causes more news coverage. Ultimately—and see the paper for more if you’re interested—this can help explain the peculiar “bubble-like” behavior we’ve seen in both Bitcoin, and other &lt;em&gt;de novo&lt;/em&gt; assets over the years.&lt;/p&gt;
+
+&lt;hr /&gt;
+
+&lt;div class=&quot;footnotes&quot;&gt;
+  &lt;ol&gt;
+    &lt;li id=&quot;fn:1&quot;&gt;
+      &lt;p&gt;More formally, they buy assets that are going to give them a high level of &lt;em&gt;expected utility&lt;/em&gt;. This often involves trying to buy insurance against things that would make your life a lot worse. For example, if you’re a truck driver you might want to buy a lot of TSLA stock—if self-driving cars take over the world, you’ll lose your job, but at least you’ll have made a lot in capital gains. You get more value from TSLA than everyone else does, because your life gets extra-bad if self-driving cars win, so it looks like a “good deal” at market prices. (This is not financial advice. Nothing I write is ever financial advice.)&amp;nbsp;&lt;a href=&quot;#fnref:1&quot; class=&quot;reversefootnote&quot;&gt;&amp;#8617;&lt;/a&gt;&lt;/p&gt;
+    &lt;/li&gt;
+    &lt;li id=&quot;fn:2&quot;&gt;
+      &lt;p&gt;In the previous example, we might &lt;em&gt;also&lt;/em&gt; expect Tesla stock to go down if the government issued regulations requiring all self-driving trucks to have a licensed trucker onboard, as the “insurance value” of TSLA for a trucker would have decreased, leading to fewer purchases by truckers&amp;nbsp;&lt;a href=&quot;#fnref:2&quot; class=&quot;reversefootnote&quot;&gt;&amp;#8617;&lt;/a&gt;&lt;/p&gt;
+    &lt;/li&gt;
+    &lt;li id=&quot;fn:3&quot;&gt;
+      &lt;p&gt;Believe it or not, that stands for &lt;strong&gt;M&lt;/strong&gt;agic &lt;strong&gt;T&lt;/strong&gt;he &lt;strong&gt;G&lt;/strong&gt;athering &lt;strong&gt;O&lt;/strong&gt;nline e&lt;strong&gt;X&lt;/strong&gt;change—the site was founded to an exchange for trading cards before pivoting to cryptocurrencies&amp;nbsp;&lt;a href=&quot;#fnref:3&quot; class=&quot;reversefootnote&quot;&gt;&amp;#8617;&lt;/a&gt;&lt;/p&gt;
+    &lt;/li&gt;
+    &lt;li id=&quot;fn:4&quot;&gt;
+      &lt;p&gt;Specifically, it gives the number of articles from the &lt;em&gt;New York Times&lt;/em&gt;, the &lt;em&gt;Washington Post&lt;/em&gt;, the &lt;em&gt;Financial Times&lt;/em&gt;, Reuters, and the &lt;em&gt;Wall Street Journal&lt;/em&gt; which mention “Bitcoin”, or associated strings, more than twice. I’ll probably try taking some more-sophisticated NLP to the data at some point, but word-counting works as a way of figuring out how many news sources are talking about Bitcoin on a given day&amp;nbsp;&lt;a href=&quot;#fnref:4&quot; class=&quot;reversefootnote&quot;&gt;&amp;#8617;&lt;/a&gt;&lt;/p&gt;
+    &lt;/li&gt;
+  &lt;/ol&gt;
+&lt;/div&gt;
+</description>
+        <pubDate>Fri, 26 May 2017 00:00:00 -0400</pubDate>
+        <link>http://localhost:4000/2017/05/26/bitcoin/</link>
+        <guid isPermaLink="true">http://localhost:4000/2017/05/26/bitcoin/</guid>
+      </item>
+    
+  </channel>
+</rss>
