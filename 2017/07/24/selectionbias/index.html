@@ -1,0 +1,262 @@
+<!DOCTYPE html>
+<html>
+<head>
+    
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>Selection bias and predictive metrics &#8211; Rishab Guha</title>
+    <link rel="dns-prefetch" href="//maxcdn.bootstrapcdn.com">
+    <link rel="dns-prefetch" href="//cdn.mathjax.org">
+    <link rel="dns-prefetch" href="//cdnjs.cloudflare.com">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="">
+    <meta name="robots" content="all">
+    <meta name="author" content="Rishab Guha">
+    
+    <meta name="keywords" content="">
+    <link rel="canonical" href="http://www.rishabguha.com/2017/07/24/selectionbias/">
+    <link rel="alternate" type="application/rss+xml" title="RSS Feed for Rishab Guha" href="/feed.xml" />
+
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="/css/pixyll.css?201707242244" type="text/css">
+
+    <!-- Fonts -->
+    <script src="https://use.typekit.net/zpb0jvp.js"></script>
+    <script>try{Typekit.load({ async: true });}catch(e){}</script>
+
+    
+
+    <!-- MathJax -->
+    
+    <script type="text/javascript" src="//cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
+    </script>
+    
+
+    <!-- Verifications -->
+    
+    
+
+    <!-- Open Graph -->
+    <!-- From: https://github.com/mmistakes/hpstr-jekyll-theme/blob/master/_includes/head.html -->
+    <meta property="og:locale" content="en_US">
+    <meta property="og:type" content="article">
+    <meta property="og:title" content="Selection bias and predictive metrics">
+    <meta property="og:description" content="">
+    <meta property="og:url" content="http://www.rishabguha.com/2017/07/24/selectionbias/">
+    <meta property="og:site_name" content="Rishab Guha">
+    
+
+    <!-- Twitter Card -->
+    <meta name="twitter:card" content="summary" />
+    
+    <meta name="twitter:title" content="Selection bias and predictive metrics" />
+    <meta name="twitter:description" content="" />
+    <meta name="twitter:url" content="http://www.rishabguha.com/2017/07/24/selectionbias/" />
+    
+
+    <!-- Icons -->
+    <link rel="apple-touch-icon" sizes="57x57" href="/apple-touch-icon-57x57.png">
+    <link rel="apple-touch-icon" sizes="114x114" href="/apple-touch-icon-114x114.png">
+    <link rel="apple-touch-icon" sizes="72x72" href="/apple-touch-icon-72x72.png">
+    <link rel="apple-touch-icon" sizes="144x144" href="/apple-touch-icon-144x144.png">
+    <link rel="apple-touch-icon" sizes="60x60" href="/apple-touch-icon-60x60.png">
+    <link rel="apple-touch-icon" sizes="120x120" href="/apple-touch-icon-120x120.png">
+    <link rel="apple-touch-icon" sizes="76x76" href="/apple-touch-icon-76x76.png">
+    <link rel="apple-touch-icon" sizes="152x152" href="/apple-touch-icon-152x152.png">
+    <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon-180x180.png">
+    <link rel="icon" type="image/png" href="/favicon-192x192.png" sizes="192x192">
+    <link rel="icon" type="image/png" href="/favicon-160x160.png" sizes="160x160">
+    <link rel="icon" type="image/png" href="/favicon-96x96.png" sizes="96x96">
+    <link rel="icon" type="image/png" href="/favicon-16x16.png" sizes="16x16">
+    <link rel="icon" type="image/png" href="/favicon-32x32.png" sizes="32x32">
+
+    
+</head>
+
+<body class="site">
+  
+	
+
+  <div class="site-wrap">
+    <header class="site-header px2 px-responsive">
+  <div class="mt2 wrap">
+    <div class="measure">
+      <a href="http://www.rishabguha.com" class="site-title">Rishab Guha</a>
+      <nav class="site-nav">
+        
+
+
+
+
+
+
+
+
+
+<a href="/">About/Home</a>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<a href="/posts/index.html">Posts</a>
+
+
+
+
+
+
+
+
+<a href="https://goo.gl/H7GmHE">CV (pdf)</a>
+
+      </nav>
+      <div class="clearfix"></div>
+      
+    </div>
+  </div>
+</header>
+
+
+    <div class="post p2 p-responsive wrap" role="main">
+      <div class="measure">
+        <div class="post-header mb2">
+  <h1>Selection bias and predictive metrics</h1>
+  <span class="post-meta">Jul 24, 2017</span><br>
+  
+</div>
+
+<article class="post-content">
+  <p>Freddie Deboer has a <a href="https://fredrikdeboer.com/2017/07/24/restriction-of-range-what-it-is-and-why-it-matters/">nice post</a> up at the ANOVA where he discusses how an administrator at Harvard, trying to figure out the correlation between SAT scores and first-year grades, could be tripped up by the statistical issue of restriction of range. Freddie’s point is a good one, and analyzing the variance of covariates is an important diagnostic step, but there’s also a slightly more subtle reason that his example is flawed: <em>selection bias</em>. <a href="https://www.theatlantic.com/education/archive/2016/03/the-problem-with-the-gre/471633/">Many</a> <a href="http://www.sciencemag.org/careers/2017/06/gres-dont-predict-grad-school-success-what-does">of</a> <a href="https://www.insidehighered.com/news/2016/01/26/new-research-suggests-sat-under-or-overpredicts-first-year-grades-hundreds-thousands">the</a> <a href="http://abcnews.go.com/Technology/WhosCounting/story?id=98373&amp;page=1">stories</a> discussing the predictive ability of standardized tests like the SAT or GRE don’t properly discuss the issue of selection bias in this context, so I thought it’d be useful to put together a basic model explaining the issue.</p>
+
+<p>Let’s consider an extremely simplified model of personal achievement in which first year grades are based on two factors: IQ and grit. When evaluating files college admissions counselors get to see two things: an applicant’s SAT score, which depends on IQ, and a measure of extracurricular leadership, which depends on grit. Applicants are ranked based on the sum of their SAT score and leadership score, and the only top 2% are admitted. In R, the model looks like this:</p>
+
+<figure class="highlight"><pre><code class="language-r" data-lang="r"><span class="n">require</span><span class="p">(</span><span class="n">tidyverse</span><span class="p">)</span><span class="w">
+</span><span class="n">require</span><span class="p">(</span><span class="n">ggplot2</span><span class="p">)</span><span class="w">
+
+</span><span class="n">set.seed</span><span class="p">(</span><span class="m">1234</span><span class="p">)</span><span class="w">
+
+</span><span class="n">N</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="m">10000</span><span class="w">
+
+</span><span class="n">admissions_rate</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="m">0.02</span><span class="w">
+
+</span><span class="c1"># intrinsic factors 
+</span><span class="w">
+</span><span class="n">grit</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">rnorm</span><span class="p">(</span><span class="n">N</span><span class="p">)</span><span class="w">
+</span><span class="n">IQ</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">rnorm</span><span class="p">(</span><span class="n">N</span><span class="p">)</span><span class="w">
+
+</span><span class="c1"># factors that determine college admission
+</span><span class="w">
+</span><span class="n">sat</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">IQ</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="m">0.2</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="n">rnorm</span><span class="p">(</span><span class="n">N</span><span class="p">)</span><span class="w">
+</span><span class="n">extracurricular</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">grit</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="m">0.2</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="n">rnorm</span><span class="p">(</span><span class="n">N</span><span class="p">)</span><span class="w">
+</span><span class="n">admit_suitability</span><span class="w"> </span><span class="o">=</span><span class="w">  </span><span class="n">sat</span><span class="w"> </span><span class="o">+</span><span class="w">  </span><span class="n">extracurricular</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="m">0.1</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="n">rnorm</span><span class="p">(</span><span class="n">N</span><span class="p">)</span><span class="w">
+
+</span><span class="c1"># admits
+</span><span class="w">
+</span><span class="n">admit_indices</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">order</span><span class="p">(</span><span class="o">-</span><span class="n">admit_suitability</span><span class="p">)[</span><span class="m">1</span><span class="w"> </span><span class="o">:</span><span class="w"> </span><span class="nf">round</span><span class="p">(</span><span class="n">N</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="n">admissions_rate</span><span class="p">)]</span><span class="w">
+</span><span class="n">admitted</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">seq</span><span class="p">(</span><span class="n">N</span><span class="p">)</span><span class="w"> </span><span class="o">%in%</span><span class="w"> </span><span class="n">admit_indices</span><span class="w">
+
+</span><span class="c1"># college gpa
+</span><span class="w">
+</span><span class="n">college_gpa</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">grit</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="n">IQ</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="n">rnorm</span><span class="p">(</span><span class="n">N</span><span class="p">)</span><span class="w">
+
+</span><span class="c1"># merge into single df
+</span><span class="w">
+</span><span class="n">df</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">(</span><span class="n">data_frame</span><span class="p">(</span><span class="n">sat</span><span class="p">,</span><span class="w"> </span><span class="n">IQ</span><span class="p">,</span><span class="w"> </span><span class="n">extracurricular</span><span class="p">,</span><span class="w"> </span><span class="n">grit</span><span class="p">,</span><span class="w"> 
+                 </span><span class="n">college_gpa</span><span class="p">,</span><span class="w"> </span><span class="n">admitted</span><span class="p">)</span><span class="w"> </span><span class="o">%&gt;%</span><span class="w">
+        </span><span class="n">arrange</span><span class="p">(</span><span class="n">admitted</span><span class="p">))</span></code></pre></figure>
+
+<p>Note that this model doesn’t have the problems of top-censoring that Freddie pointed out exist with the real-life SAT. Now we can see how well a hypothetical administrator’s estimate of the relationship between SAT scores and college grades among admitted students would generalize to the rest of the student population:</p>
+
+<figure class="highlight"><pre><code class="language-r" data-lang="r"><span class="n">population_regression</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">lm</span><span class="p">(</span><span class="n">college_gpa</span><span class="w"> </span><span class="o">~</span><span class="w"> </span><span class="n">sat</span><span class="p">,</span><span class="w"> 
+                           </span><span class="n">data</span><span class="o">=</span><span class="n">filter</span><span class="p">(</span><span class="n">df</span><span class="p">,</span><span class="w"> </span><span class="n">admitted</span><span class="o">==</span><span class="nb">F</span><span class="p">))</span><span class="w">
+
+</span><span class="n">admitted_regression</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">lm</span><span class="p">(</span><span class="n">college_gpa</span><span class="w"> </span><span class="o">~</span><span class="w"> </span><span class="n">sat</span><span class="p">,</span><span class="w"> 
+                         </span><span class="n">data</span><span class="o">=</span><span class="n">filter</span><span class="p">(</span><span class="n">df</span><span class="p">,</span><span class="w"> </span><span class="n">admitted</span><span class="o">==</span><span class="nb">T</span><span class="p">))</span><span class="w">
+
+</span><span class="n">print</span><span class="p">(</span><span class="n">paste</span><span class="p">(</span><span class="s2">"Coefficient on SAT in population:"</span><span class="p">,</span><span class="w"> 
+            </span><span class="nf">round</span><span class="p">(</span><span class="n">population_regression</span><span class="o">$</span><span class="n">coefficients</span><span class="p">[</span><span class="s1">'sat'</span><span class="p">],</span><span class="m">3</span><span class="p">)))</span><span class="w">
+
+</span><span class="n">print</span><span class="p">(</span><span class="n">paste</span><span class="p">(</span><span class="s2">"Coefficient on SAT in admitted sample:"</span><span class="p">,</span><span class="w"> 
+            </span><span class="nf">round</span><span class="p">(</span><span class="n">admitted_regression</span><span class="o">$</span><span class="n">coefficients</span><span class="p">[</span><span class="s1">'sat'</span><span class="p">],</span><span class="m">3</span><span class="p">)))</span></code></pre></figure>
+
+<figure class="highlight"><pre><code class="language-plaintext" data-lang="plaintext">[1] "Coefficient on SAT in population: 0.924"
+[1] "Coefficient on SAT in admitted sample: 0.151"</code></pre></figure>
+
+<p>What does this mean? Let’s say we were comparing two students from the non-admitted population, knew only their SAT scores, and wanted to predict the difference in their college GPAs. The results of our simulation say that if we used data from the admitted population to train our model the predicted difference would be <strong>over six times too small</strong>. Why? Selection bias. If we plot SAT score vs. college GPA, we see that the sample of admitted students shows a much flatter relationship than the population as a whole:</p>
+
+<p align="center">
+  <img src="http://www.rishabguha.com/assets/collegegpavssat.svg" alt="college gpa plot" />
+</p>
+
+<p>Intuitively, admitted students with a relatively low SAT score are much less likely to have a low college GPA than non-admitted students with the same SAT score. This is because <em>admitted students were admitted for a reason</em>. If a student has a low SAT score, they were probably admitted because they have a lot of grit—and that grit will also help them do better in college. This shows up pretty starkly if we plot SAT scores vs. grit:</p>
+
+<p align="center">
+  <img src="http://www.rishabguha.com/assets/gritvssat.svg" alt="college gpa plot" />
+</p>
+
+<p>The selection process has created a strong <em>negative relationship</em> between grit and SAT score among admitted students, even though the two variables are perfectly uncorrelated in the population as a whole. One obvious way to counteract this selection bias is to include the measure of extracurricular success directly in our regression:</p>
+
+<figure class="highlight"><pre><code class="language-r" data-lang="r"><span class="n">controlled_regression</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">(</span><span class="n">lm</span><span class="p">(</span><span class="n">college_gpa</span><span class="w"> </span><span class="o">~</span><span class="w"> </span><span class="n">sat</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="n">extracurricular</span><span class="p">,</span><span class="w"> 
+                            </span><span class="n">data</span><span class="o">=</span><span class="n">filter</span><span class="p">(</span><span class="n">df</span><span class="p">,</span><span class="w"> </span><span class="n">admitted</span><span class="o">==</span><span class="nb">T</span><span class="p">)))</span><span class="w">
+							
+</span><span class="n">print</span><span class="p">(</span><span class="n">paste</span><span class="p">(</span><span class="s2">"Coefficient on SAT in controlled admitted sample:"</span><span class="p">,</span><span class="w"> 
+            </span><span class="nf">round</span><span class="p">(</span><span class="n">controlled_regression</span><span class="o">$</span><span class="n">coefficients</span><span class="p">[</span><span class="s1">'sat'</span><span class="p">],</span><span class="m">3</span><span class="p">)))</span></code></pre></figure>
+
+<figure class="highlight"><pre><code class="language-plaintext" data-lang="plaintext">Coefficient on SAT in controlled admitted sample: 1.012</code></pre></figure>
+
+<p>Unfortunately, we often won’t have a precise quantitative measure of how admissions officers evaluated something like grit when comparing applicants. This is especially true if we’re trying to compare outcomes across different universities. In these cases, we might try to get an prediction of how likely each student was to be admitted based on a very large number of predictors. Then we could actively control for probability of selection. Some of my current research is based on around adapting machine learning methods to this predictive task of propensity score estimation—hopefully I’ll have some original results to share soon!</p>
+
+</article>
+
+
+
+
+
+
+
+
+
+
+
+
+
+      </div>
+    </div>
+  </div>
+
+  <footer class="center">
+  <div class="measure">
+    <small>
+      This site made with <a href="https://jekyllrb.com/">Jekyll</a> using the <a href="https://github.com/johnotander/pixyll">Pixyll</a> theme
+    </small>
+  </div>
+</footer>
+
+
+</body>
+</html>
