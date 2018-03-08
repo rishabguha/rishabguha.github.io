@@ -18,7 +18,7 @@
     <link rel="alternate" type="application/rss+xml" title="RSS Feed for Rishab Guha" href="/feed.xml" />
 
     <!-- Custom CSS -->
-    <link rel="stylesheet" href="/css/pixyll.css?201707251124" type="text/css">
+    <link rel="stylesheet" href="/css/pixyll.css?201803072021" type="text/css">
 
     <!-- Fonts -->
     <script src="https://use.typekit.net/zpb0jvp.js"></script>
@@ -173,28 +173,28 @@
 
 </span><span class="n">admissions_rate</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="m">0.02</span><span class="w">
 
-</span><span class="c1"># intrinsic factors 
-</span><span class="w">
+</span><span class="c1"># intrinsic factors </span><span class="w">
+
 </span><span class="n">grit</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">rnorm</span><span class="p">(</span><span class="n">N</span><span class="p">)</span><span class="w">
 </span><span class="n">IQ</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">rnorm</span><span class="p">(</span><span class="n">N</span><span class="p">)</span><span class="w">
 
-</span><span class="c1"># factors that determine college admission
-</span><span class="w">
+</span><span class="c1"># factors that determine college admission</span><span class="w">
+
 </span><span class="n">sat</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">IQ</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="m">0.2</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="n">rnorm</span><span class="p">(</span><span class="n">N</span><span class="p">)</span><span class="w">
 </span><span class="n">extracurricular</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">grit</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="m">0.2</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="n">rnorm</span><span class="p">(</span><span class="n">N</span><span class="p">)</span><span class="w">
 </span><span class="n">admit_suitability</span><span class="w"> </span><span class="o">=</span><span class="w">  </span><span class="n">sat</span><span class="w"> </span><span class="o">+</span><span class="w">  </span><span class="n">extracurricular</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="m">0.1</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="n">rnorm</span><span class="p">(</span><span class="n">N</span><span class="p">)</span><span class="w">
 
-</span><span class="c1"># admits
-</span><span class="w">
+</span><span class="c1"># admits</span><span class="w">
+
 </span><span class="n">admit_indices</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">order</span><span class="p">(</span><span class="o">-</span><span class="n">admit_suitability</span><span class="p">)[</span><span class="m">1</span><span class="w"> </span><span class="o">:</span><span class="w"> </span><span class="nf">round</span><span class="p">(</span><span class="n">N</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="n">admissions_rate</span><span class="p">)]</span><span class="w">
 </span><span class="n">admitted</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">seq</span><span class="p">(</span><span class="n">N</span><span class="p">)</span><span class="w"> </span><span class="o">%in%</span><span class="w"> </span><span class="n">admit_indices</span><span class="w">
 
-</span><span class="c1"># college gpa
-</span><span class="w">
+</span><span class="c1"># college gpa</span><span class="w">
+
 </span><span class="n">college_gpa</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">grit</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="n">IQ</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="n">rnorm</span><span class="p">(</span><span class="n">N</span><span class="p">)</span><span class="w">
 
-</span><span class="c1"># merge into single df
-</span><span class="w">
+</span><span class="c1"># merge into single df</span><span class="w">
+
 </span><span class="n">df</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">(</span><span class="n">data_frame</span><span class="p">(</span><span class="n">sat</span><span class="p">,</span><span class="w"> </span><span class="n">IQ</span><span class="p">,</span><span class="w"> </span><span class="n">extracurricular</span><span class="p">,</span><span class="w"> </span><span class="n">grit</span><span class="p">,</span><span class="w"> 
                  </span><span class="n">college_gpa</span><span class="p">,</span><span class="w"> </span><span class="n">admitted</span><span class="p">)</span><span class="w"> </span><span class="o">%&gt;%</span><span class="w">
         </span><span class="n">arrange</span><span class="p">(</span><span class="n">admitted</span><span class="p">))</span></code></pre></figure>
