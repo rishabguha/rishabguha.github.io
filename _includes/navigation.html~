@@ -1,0 +1,14 @@
+{% for page in site.pages %}
+{% if page.tags contains "about" %}
+<a href="{{ page.url }}">{{ "About/Home" }}</a>
+{% endif %}
+{% endfor %}
+
+{% for page in site.pages %}
+{% if page.tags contains "posts" %}
+<a href="{{ page.url }}">{{ "Posts" }}</a>
+{% endif %}
+{% endfor %}
+
+
+<a href="https://www.dropbox.com/s/obnbsj8d3aof5k9/rishabguharesume.pdf?dl=0">CV (pdf)</a>
